@@ -1,0 +1,2 @@
+## Console Decision Logger
+Optimizely Web Experimentation custom analytics integration to log decisions to the console. Logging will include a section that contains all of the standard variables and their values as well as a decision object section containing the decision object (if any).

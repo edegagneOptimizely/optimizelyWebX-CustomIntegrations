@@ -1,0 +1,9 @@
+{
+    "plugin_type": "analytics_integration",
+    "name": "Console Decision Logger",
+    "form_schema": [],
+    "description": "Custom analytics integration to log decision event information to the browser console. This integration will log two objects per decision; All of the standard variables contained in a json object, and the decision object from state wrapped in a json object container.",
+    "options": {
+      "track_layer_decision": "// Gets the decision object from state.\nfunction getDecisionObject() {  \n  return window.optimizely\n  \t.get(\"state\")\n  \t.getDecisionObject(\n   \t{\n    \tcampaignId: campaignId,\n     \tshouldCleanString: true\n\t \t});\n}\n\n//\tLogs the decison info to the console\nfunction logDecision() {\n  // Create/populate standard variables object\n  const jsonStdVars = {\n    campaignId: campaignId,\n    experimentId: experimentId,\n    variationId: variationId,\n    isHoldback: isHoldback,\n    campaign: campaign\n  };\n\n  console.group(\"Optimizely Console Decision Logger\");\n  console.group(\"Standard Variables\");\n  // Log the standard variables object\n  console.log(jsonStdVars);\n  console.groupEnd();\n\n  // Get and log the decision object\n  console.group(\"Decision Object\");\n  console.log(getDecisionObject());\n  console.groupEnd();\n  console.groupEnd();\n}\n\nlogDecision();\n"
+    }
+  }
