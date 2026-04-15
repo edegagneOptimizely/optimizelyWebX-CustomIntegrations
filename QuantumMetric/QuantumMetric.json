@@ -1,0 +1,45 @@
+{
+  "plugin_type": "analytics_integration",
+  "name": "Quantum Metric Integration",
+  "form_schema": [
+    {
+      "field_type": "text",
+      "name": "qm_decision_id",
+      "options": null,
+      "label": "QM Decision ID (Campaign, Experiment and Variation)",
+      "default_value": "58"
+    },
+    {
+      "field_type": "text",
+      "name": "qm_campaign_id",
+      "options": null,
+      "label": "QM Campaign Event ID",
+      "default_value": "59"
+    },
+    {
+      "field_type": "text",
+      "name": "qm_experiment_id",
+      "options": null,
+      "label": "QM Experiment Event ID",
+      "default_value": "60"
+    },
+    {
+      "field_type": "text",
+      "name": "qm_variation_id",
+      "options": null,
+      "label": "QM Variation Event ID",
+      "default_value": "61"
+    },
+    {
+      "field_type": "text",
+      "name": "qm_holdback_id",
+      "options": null,
+      "label": "QM Holdback Event ID",
+      "default_value": "62"
+    }
+  ],
+  "description": "This integration sends Optimizely campaign, experiments and variation data to Quantum Metric as events for segmentation and analysis.",
+  "options": {
+    "track_layer_decision": "function sendDecisionData(){\n    try{\n        if (extension.qm_decision_id){\n            window.QuantumMetricAPI.sendEvent(extension.qm_decision_id, 0, \"Campaign: \" + campaign + \" \\nExperiment: \" + experimentId + \" \\nVariation: \" + variationId);\n        }\n        if (extension.qm_campaign_id){\n            window.QuantumMetricAPI.sendEvent(extension.qm_campaign_id, 0, campaignId);\n        }\n        if (extension.qm_experiment_id){\n            window.QuantumMetricAPI.sendEvent(extension.qm_experiment_id, 0, experimentId);\n        }\n        if (extension.qm_variation_id){\n            window.QuantumMetricAPI.sendEvent(extension.qm_variation_id, 0, variationId);\n        }\n    } catch (e) {}\n}\n    \nif(!!window.QuantumMetricAPI){ \n    sendDecisionData(); \n} else{  \n    window.addEventListener(\"quantumReady\", sendDecisionData);  \n}"
+  }
+}
